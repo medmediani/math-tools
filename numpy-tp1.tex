@@ -1,0 +1,234 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{titling}
+\usepackage[lmargin=2cm,rmargin=2cm,bottom=5em,top=5em]{geometry}
+\usepackage{mhchem}
+\usepackage{enumitem}
+\usepackage[
+	printsolution=false,
+	exercisename=Exercice,
+	exercisenameposition=inline,
+	exercisespaceabove=1ex,
+	exercisespacebelow=.5ex
+	]{exercises}
+\usepackage{lastpage}
+%\usepackage[lastexercise]{exercise}
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\small\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\usepackage{fancyhdr}
+
+\usepackage{amsthm}
+ 
+\makeatletter
+\newtheoremstyle{HintStyle}
+  {3pt}% space before
+  {0pt}% space after
+  {\em\small
+  %\addtolength{\@totalleftmargin}{-0.5em}
+   %\addtolength{\linewidth}{-0.1em}
+   \parshape 1 0.025\linewidth 0.95\linewidth}% body font
+  {}% indent
+  {\bfseries}% header font
+  {:}% punctuation
+  {\newline}% after theorem header
+  {}% header specification (empty for default)
+\makeatother
+
+\theoremstyle{HintStyle}
+\newtheorem*{remark}{Indications}
+
+\makeatletter
+\newtheoremstyle{ExampleStyle}
+  {3pt}% space before
+  {3pt}% space after
+  {\addtolength{\@totalleftmargin}{3.0em}
+   \addtolength{\linewidth}{-3.0em}
+   \parshape 1 3.5em \linewidth}% body font
+  {}% indent
+  {\bfseries\em}% header font
+  {:}% punctuation
+  {\newline}% after theorem header
+  {}% header specification (empty for default)
+\makeatother
+
+\theoremstyle{ExampleStyle}
+\newtheorem*{ex}{Exemple(s)}
+
+\makeatletter
+\def\enumfix{%
+\if@inlabel
+ \noindent \par\nobreak\vskip-\parskip\vskip-\baselineskip\hrule\@height\z@
+\fi}
+
+\let\oldenumerate\enumerate
+\def\enumerate{\enumfix\oldenumerate}
+
+\pagestyle{empty}
+%\fancyhf{}
+%\cfoot{\thepage}
+
+%\lhead{COUCOU}
+%\rhead{
+%text\\
+%text\\
+%text\\
+%text}
+
+   
+\fancypagestyle{myfancy}
+{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0.1pt}
+    %\lfoot{Some Text}
+    \rfoot{\thepage/\pageref{LastPage}}
+}
+\fancypagestyle{page1}
+{
+   \fancyhf{}
+   \renewcommand{\headrulewidth}{1pt}
+   %\rule{\linewidth}{\headrulewidth}\\[3pt]% <- added
+   
+   \lhead{Université d'Adrar\\Département d'informatique et mathématiques}
+   %\chead{~\\even more text}
+   \rhead{Outils de programmation pour les math.\\$1^\text{ère}$ année MI}
+   \rfoot{\thepage/\pageref{LastPage}}
+}
+
+\title{\vspace{-.7ex} \large \bfseries{TP1:} Introduction au langage de programmation Python
+}
+\setlength{\parindent}{0cm}
+\date{}
+\predate{}
+\postdate{}
+\setlength{\droptitle}{-3em} 
+%\posttitle{\par\end{center}}
+\begin{document}
+%\setlength{\headheight}{80pt}
+
+\pagestyle{myfancy}
+\maketitle
+\thispagestyle{page1}
+\vspace{-5em}
+
+\begin{exercise}
+	Ecrire un programme qui teste la parité d'un nombre naturel.	
+\end{exercise}
+
+\begin{exercise}
+	Ecrire un programme qui affiche la valeur absolue d'un entier donné.	
+\end{exercise}
+
+\begin{exercise}
+Ecrire un programme qui lit deux réels $x$, $y$ et qui:
+\begin{enumerate}
+ \item Affiche la surface du cercle dont le rayon est $x$ ($\pi x^{2}$).
+ \item Affiche la surface d'un rectangle de dimensions $x$ et $y$ ($x\times y$
+  ).
+  \item Affiche la surface du cylindre dont le rayon est $x$ et la 
+  hauteur est $y$ ($2\pi x\left(x+y\right)$).
+  \end{enumerate}
+    \begin{remark}
+  \begin{enumerate}
+  \item Utiliser le package \pythoninline{math} pour avoir la constante $\pi$:\\
+  \pythoninline { import math}
+  \item Utiliser le help sur le module \pythoninline{math}.
+  \end{enumerate}
+  \end{remark}
+ \end{exercise}
+
+\begin{exercise}
+	Ecrire un programme en lui fournissant le moi présent, donne le moi suivant.
+	On vous demande de donner deux solutions: une en utilisant 'if' et l'autre sans 'if'.	
+	\begin{remark}
+	Utiliser la méthode \pythoninline{index} du type liste pour avoir l'index du moi dans une liste des chînes de caractères. 
+	\end{remark}
+\end{exercise}
+
+\begin{exercise}
+	Ecrire un programme qui fait la conversion des coordonnées cartisiennes aux coordonnées polaires.
+\end{exercise}
+
+\begin{exercise}
+\begin{enumerate}
+	\item La fonction \pythoninline{time} du package \pythoninline{time} donne le nombre de secondes écoulées depuis le $1$er janvier $1970$ 00:00:00 UTC.
+	Transformer ce nombre de secondes en nombre d'années, de jours, d'heures, de minnutes et de secondes (en prenant simplement $1$ an= $365$ jours).
+	\item On utilise souvent cette fonction pour compter le temps écoulé dans un calcul donné. 
+	Utiliser la fonction \pythoninline{sleep} du même package pour simuler une longue opération, et compter le temps. Que remarquez-vous?
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	Ecrire un programme qui clacule la somme des chiffres composant la base à la puissance spécifiée.
+	
+	\begin{ex}
+	\begin{enumerate}
+	\item base=$2$; puissance=$10$; résultat: $7$ ($=1+0+2+4$)
+	\item base=$3$; puissance=$6$; résultat: $18$ ($=7+2+9$)
+\end{enumerate}
+	\end{ex}
+	\begin{remark}
+	On vous recommende d'utilser les fonctions \pythoninline{sum} et \pythoninline{map} qui opèrent sur les lsites. Utliser le help pour en avoir une idée.
+	\end{remark}
+\end{exercise}
+
+\begin{exercise}
+	Ecrire un programme qui résout une équation quadratique $ax^2+bx+c=0$ en donnant en entrée les trois coefficients $a$, $b$, $c$.
+	
+  \begin{remark}
+  Utiliser le package \pythoninline{cmath} pour effectuer des calculs dans le domaine complex\\
+  \pythoninline{import cmath}
+  
+  \end{remark}
+\end{exercise}
+%\begin{solution}[3cm]
+	%The result is $1 + 1 = 2$
+%\end{solution}
+
+
+\end{document}

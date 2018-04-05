@@ -1,0 +1,310 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{titling}
+
+\usepackage{hyperref}
+\usepackage{interval}
+\usepackage[lmargin=2cm,rmargin=2cm,bottom=5em,top=5em]{geometry}
+\usepackage{mhchem}
+\usepackage{enumitem}
+\usepackage[
+	printsolution=false,
+	exercisename=Exercice,
+	exercisenameposition=inline,
+	exercisespaceabove=1ex,
+	exercisespacebelow=.5ex
+	]{exercises}
+\usepackage{lastpage}
+%\usepackage[lastexercise]{exercise}
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\small\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+%breaklines=true,
+showstringspaces=false            %
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\usepackage{fancyhdr}
+
+\usepackage{amsthm}
+ 
+\makeatletter
+\newtheoremstyle{HintStyle}
+  {3pt}% space before
+  {0pt}% space after
+  {\em\small
+  %\addtolength{\@totalleftmargin}{-0.5em}
+   %\addtolength{\linewidth}{-0.1em}
+   \parshape 1 0.025\linewidth 0.95\linewidth}% body font
+  {}% indent
+  {\bfseries}% header font
+  {:}% punctuation
+  { }% after theorem header
+  {}% header specification (empty for default)
+\makeatother
+
+\theoremstyle{HintStyle}
+\newtheorem*{remark}{Indications}
+
+\makeatletter
+\newtheoremstyle{ExampleStyle}
+  {3pt}% space before
+  {3pt}% space after
+  {\addtolength{\@totalleftmargin}{3.0em}
+   \addtolength{\linewidth}{-3.0em}
+   \parshape 1 3.5em \linewidth}% body font
+  {}% indent
+  {\bfseries\em}% header font
+  {:}% punctuation
+  {\newline}% after theorem header
+  {}% header specification (empty for default)
+\makeatother
+
+\theoremstyle{ExampleStyle}
+\newtheorem*{ex}{Exemple(s)}
+
+\makeatletter
+\def\enumfix{%
+\if@inlabel
+ \noindent \par\nobreak\vskip-\parskip\vskip-\baselineskip\hrule\@height\z@
+\fi}
+
+\let\oldenumerate\enumerate
+\def\enumerate{\enumfix\oldenumerate}
+
+\pagestyle{empty}
+%\fancyhf{}
+%\cfoot{\thepage}
+
+%\lhead{COUCOU}
+%\rhead{
+%text\\
+%text\\
+%text\\
+%text}
+
+   
+\fancypagestyle{myfancy}
+{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0.1pt}
+    %\lfoot{Some Text}
+    \rfoot{\thepage/\pageref{LastPage}}
+}
+\fancypagestyle{page1}
+{
+   \fancyhf{}
+   \renewcommand{\headrulewidth}{1pt}
+   %\rule{\linewidth}{\headrulewidth}\\[3pt]% <- added
+   
+   \lhead{Université d'Adrar\\Département d'informatique et mathématiques}
+   %\chead{~\\even more text}
+   \rhead{Outils de programmation pour les math.\\$1^\text{ère}$ année MI}
+   \rfoot{\thepage/\pageref{LastPage}}
+}
+
+\title{\vspace{-.7ex} \large \bfseries{TP2:} Boucles, fonctions, \& vecteurs
+}
+\setlength{\parindent}{0cm}
+\date{}
+\predate{}
+\postdate{}
+\setlength{\droptitle}{-4em} 
+%\posttitle{\par\end{center}}
+\begin{document}
+%\setlength{\headheight}{80pt}
+
+\pagestyle{myfancy}
+\maketitle
+\thispagestyle{page1}
+\vspace{-6em}
+Utiliser le fragment suivant pour générer les données sur lesquelles on va travailler.
+
+
+\begin{python}
+	import numpy as np  
+	np.random.seed(1234)
+	d=np.random.rand(10)
+	e=np.random.randint(1,20,10)
+\end{python}
+On vous recommende d'utiliser le help pour examiner les fonctions utilisées dans ce fragment. i.e. 
+ \pythoninline{np.random.seed}, \pythoninline{np.random.rand}, \pythoninline{np.random.randint}.
+%On utilise \pythoninline{seed} pour que tous les ètudiants auront les même données. 
+
+\begin{exercise}
+%La dérivée d'une fonction $\operatorname{f}$ à un point $x$ peut être  approximée par la fonction:
+%$$\operatorname{g} (x,\delta)=\frac{\operatorname{f}(x+\delta)-\operatorname{f}(x)}{\delta}$$
+%Ecrire une fonction qui accepte comme paramètres: une fonction d'une seule variable $\operatorname{f}(x)$, un point $x$, et 
+\begin{enumerate}\item Ecrire une fonction qui accepte en entrée un vecteur $v$ et qui retourne la moyenne $\bar{v}$ et l'écart-type $\sigma_v$ du vecteur $v$. Où:
+
+\begin{minipage}{.4\linewidth}
+$$\bar{v}=\frac{\sum_{i=0}^n{v_i}}{n}$$
+\end{minipage}
+et
+\begin{minipage}{.4\linewidth}
+$$\sigma_v=\sqrt{\frac{\sum_{i=0}^n{(v_i-\bar{v})^2}}{n}}$$
+\end{minipage}
+
+\item Ecrire une autre fonction qui fait le même calcul en  un seul passage sur les données. 
+i.e. On calcul la moyenne et l'ecart-type dans une seule itération. 
+\begin{remark}
+Calculer la somme et la somme des carrées durant le seul passage sur les données. 
+\end{remark}
+\item Appliquer ces  fonctions aux vecteurs $d$ et $e$.  Donnent-elles le même résultat?
+\item Dans l'analyse de données on a souvent besoin d'effectuer des transformations sur les données. Voici quelques exemples: 
+\begin{itemize}
+	\item [Standardisation] Ecrire une fonction qui effectue la soustraction de la moyenne et divise par l'ecart type et retourne le vecteur qui en résulte.
+	Appliquer cette fonction sur le vecteur $d$ et donner le nombre des nombres négatifs dans le vecteur retourné.
+	\item [Normalisation] Ecrire une focntion qui effectue la normalisation d'un vecteur passé comme paramètre. 
+	La fonction doit aussi accepter un paramètre qui permet de choisir entre norme 1 ($\ell_1-$norm)\footnote{\url{http://mathworld.wolfram.com/L1-Norm.html}} 
+	ou bien norme 2 ($\ell_2-$norm)\footnote{\url{http://mathworld.wolfram.com/L2-Norm.html}}  (Chercher la définition de ces deux termes sur Internet).
+	\item [Mise à l'echelle] Ecrire une fonction qui transforme les données dans un vecteur, à l'interval  $\interval{0}{1}$. 
+	Pour chaque  élément dans le vecteur en entrée, on enlève la valeur minimale et on divise par l'étendue.
+	On aura toujours au moins un $0$ et un $1$ dans le vecteur résultat.
+\end{itemize}
+\item Appliquer touts les traitements précédents (Standardisation, normalisation,\dots) en série sur un vecteur donné. 
+i.e. On applique la standardisation, ensuite on applique la normalisation au résultat de la standardisation,\dots etc.
+Procéder en définissant une liste de fonctions et en utilisant la fonction \pythoninline{reduce}.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	Ecrire une fonction qui retourne la médiane du vecteur $v$. i.e. La valeur qui permet de couper l'ensemble des valeurs en deux parties égales.
+	Appliquer-la sur $d$ et $e$.
+\begin{remark}
+On doit d'abord trier le vecteur (en utilisant la fonction \pythoninline{sort}). 
+Si le nombre des éléments du vecteur est impair, la médiane est au milieu du vecteur trié.
+Sinon, la médiane est la moyenne des deux éléments au milieu.
+
+\end{remark}
+
+
+\end{exercise}
+
+
+\begin{exercise}
+Dans cet exercice, on considère uniquement le vecteur $e$ qui contient des valeurs entières.
+
+Créer deux vecteurs de même taille résumant les données dans $e$:
+\begin{itemize}
+\item Le premier contient les occurrences uniques des valeurs apparaissant dans $e$.
+\item Le deuxième contient le nombre d'occurences (i.e. la fréquence) de ces valeurs unqiues dans $e$.
+\end{itemize}
+
+\begin{remark}
+Utiliser la fonction \pythoninline{unique}
+\end{remark}
+\begin{enumerate}
+ \item Exprimer les occurrences sous forme de probabilités.
+ \item Quelle est la valeur la plus fréquente dans le vecteur?
+ \item Calculer la somme, la moyenne et l'ecart type en utilisant ces deux vecteurs.
+ \item Utiliser la recherche dichotomique pour trouver si un nombre généré aléatoirement existe dans le vecteur.
+\begin{remark}
+Utiliser la fonction \pythoninline{searchsorted} pour une recherche dichotomique dans un vecteur trié.
+Utliser une des fonctions mentionnées dans le fragment ci-dessus pour générer le nombre aléatoir.
+\end{remark}
+
+ \item Calculer la médiane en utilisant uniquement les deux vecteurs.
+ \begin{remark}
+Utiliser la fonction \pythoninline{cumsum}.
+\end{remark}
+
+ \item regénérer les valeurs du vecteur original trié.
+ \begin{remark}
+Utiliser la fonction \pythoninline{repeat}.
+\end{remark}
+
+ \item Générer un echantillon sans remise de taille $5$ du vecteur $e$, 
+ \begin{enumerate}[label=\roman*]
+	\item En considérant seulement les valeurs uniques.
+	\item En tenant compte des répétitions.
+ \end{enumerate}
+ 
+ \begin{remark}
+ Utiliser la fonction \pythoninline{random.choice} 
+ \end{remark}
+ \item Afficher les éléments pairs du vecteur $e$. Afficher leur nombre.
+ \item Afficher les éléments entre $10$ et $20$.
+ 
+ \end{enumerate}
+    %\begin{remark}
+  %\begin{enumerate}
+  %\item Utiliser le package \pythoninline{math} pour avoir la constante $\pi$:\\
+  %\pythoninline { import math}
+  %\item Utiliser le help sur le module \pythoninline{math}.
+  %\end{enumerate}
+  %\end{remark}
+ \end{exercise}
+
+\begin{exercise}
+	Ecrire une fonction qui re\c coit un vecteur $v$ et une valeur $x$ comme paramètres. 
+	Elle doit retourner la valeur dans $v$ qui est la plus prôche de $x$.
+	Appliquer-la au vecteur $d$ et une valeur  aléatoirement générée.
+	  
+\end{exercise}
+
+\begin{exercise}
+	Ecrire une fonction qui calcule la moyenne mobile d'un vecteur $v$ sur une fenêtre $n$. 
+	i.e. On doit caculer un nouveau vecteur qui contient les moyennes de chaque $n$ éléments consecutifs du vecteur $v$.
+\end{exercise}
+
+%~ \begin{exercise}
+
+%~ \end{exercise}
+
+%~ \begin{exercise}
+	%~ \begin{ex}
+	
+	%~ \end{ex}
+	%~ \begin{remark}
+	
+	%~ \end{remark}
+%~ \end{exercise}
+
+%\begin{solution}[3cm]
+	%The result is $1 + 1 = 2$
+%\end{solution}
+
+
+\end{document}
